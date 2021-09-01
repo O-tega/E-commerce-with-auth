@@ -1,0 +1,24 @@
+<%- include('head.ejs') %> 
+<body>
+    <div class="container card cd rounded bg-light m-auto mt-5 justify-content-center">
+        <h4 class="text-center pt-3">Login</h4>
+        <hr>
+        <div class="container">
+            <%- include('./partials/messages.ejs') %> 
+        </div>
+        <form action="<%= server_url %>login" method = POST>
+            <div class="container pb-2">
+                <p>
+                    <h6>Email</h6>
+                    <input type="text" name="email" id="email" class="form-control" placeholder="enter email address" value=<%= typeof email != 'undefined' ? email : '' %>>
+                </p>
+                <p>
+                    <h6>Password</h6>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="*************" >
+            </div>
+            <div class="pb-4 container">
+                <input type="submit" value="Signup" class="form-control btn btn-primary">
+            </div>
+        </form>
+    </div>
+<%- include('tail.ejs') %> 

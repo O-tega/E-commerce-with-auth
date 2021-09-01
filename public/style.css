@@ -1,0 +1,54 @@
+.cd {
+    width: 30% !important;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+}
+
+.navbar{
+    background-color: #7952b3;
+    width: 250px;
+    height: 100vh;
+    position: fixed !important;   
+    margin-left: -300px;
+    transition: 0.4s;
+
+}
+.nav-link{
+    font-size: 1.25em;
+}
+.nav-link:active,
+.nav-link:focus,
+.nav-link:hover{
+    background-color: #ffffff26;
+}
+.navbar-menu{
+    background-color: #7952b3;
+}
+.navbar-item:active,
+.navbar-item:focus,
+.navbar-item:hover{
+    background-color: #ffffff26;
+}
+.my-container{
+    transition: 0.4s;
+}
+.active-nav{
+    margin-left:0 ;
+}
+.active-cont{
+    margin-left:250px !important;
+}
+#menu-btn{
+    background-color: #7952b3;
+    color: white;
+}
+.menu-btn:focus{
+    box-shadow:0 0 0 0.25rem #7952b3;
+}

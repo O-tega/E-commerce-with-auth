@@ -1,0 +1,133 @@
+<%- include('head.ejs') %>
+<!-- ==================NAv BAR===================== -->
+
+<!-- =====================Side NavBar================ -->
+<nav
+	class="
+		navbar navbar-expand
+		d-flex
+		flex-column
+		align-item-start
+	"
+	id="sidebar"
+>
+	<!-- brand logo/icon -->
+	<a
+		href="#"
+		class="navbar-brand text-light mt-5"
+	>
+		<div
+			class="display-5 font-weight-bold"
+		>
+			Custom
+		</div>
+	</a>
+	<!-- nav body -->
+	<ul
+		class="
+			navbar-nav
+			d-flex
+			flex-column
+			mt-5
+			w-100
+		"
+	>
+		<li class="nav-item w-100">
+			<a
+				href="#"
+				class="nav-link text-light pl-4"
+			>
+				Home
+			</a>
+		</li>
+		<li class="nav-item w-100">
+			<a
+				href="#"
+				class="nav-link text-light pl-4"
+			>
+				About
+			</a>
+		</li>
+		<li class="nav-item w-100">
+			<a
+				href="#"
+				class="nav-link text-light pl-4"
+			>
+				Blog
+			</a>
+		</li>
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Service</a>
+			<ul class="dropdown-menu">
+			<li><a class="dropdown-item" href="#">Service 01</a></li>
+			<li><a class="dropdown-item" href="#">Service 02</a></li>
+			<li><a class="dropdown-item" href="#">Service 03</a></li>
+			<li><hr class="dropdown-divider"></li>
+			<li><a class="dropdown-item" href="#">More service</a></li>
+			</ul>
+		</li>
+		<li class="nav-item w-100">
+			<a
+				href="#"
+				class="nav-link text-light pl-4"
+			>
+				Contact
+			</a>
+		</li>
+	</ul>
+</nav>
+<section class="p-4 container">
+	<div class="my-container">
+		<button
+			class="btn my-4"
+			id="menu-btn"
+		>
+			Toogle bar
+		</button>
+		<div>
+			<h2
+				class="text-center text-primary"
+			>
+				Dashboard
+			</h2>
+		</div>
+		<div class="justify-content-center">
+			<p>Welcome, is nice having you</p>
+			<a
+				type="button"
+				value="log out"
+				class="btn btn-success"
+				href="<%= server_url %>logout "
+				class="btn btn-success"
+				>log out</a
+			>
+		</div>
+	</div>
+</section>
+
+<script>
+	var menu_bar = document.querySelector(
+		"#menu-btn"
+	);
+	var sideBar =
+		document.querySelector("#sidebar");
+	var container =
+		document.querySelector(
+			".my-container"
+		);
+
+	menu_bar.addEventListener(
+		"click",
+		() => {
+			sidebar.classList.toggle(
+				"active-nav"
+			);
+			container.classList.toggle(
+				"active-cont"
+			);
+			console.log("echo");
+		}
+	);
+</script>
+
+<%- include('tail.ejs') %>
