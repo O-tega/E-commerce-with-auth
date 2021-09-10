@@ -110,6 +110,7 @@ exports.postSignup = async (
 	}
 };
 
+//user login
 exports.getlogin = async (
 	req,
 	res,
@@ -118,13 +119,15 @@ exports.getlogin = async (
 	try {
 		res.render("login.ejs", {
 			server_url: req.server_url,
+			title: "Login",
 		});
 		// console.log(req.session)
- 	} catch (error) {
+	} catch (error) {
 		next(error);
 	}
 };
 
+//user post login
 exports.postlogin = async (
 	req,
 	res,
@@ -136,6 +139,7 @@ exports.postlogin = async (
 		failureFlash: true,
 	})(req, res, next);
 };
+
 
 exports.logout = async (
 	req,
@@ -150,12 +154,3 @@ exports.logout = async (
 		res.redirect("/login");
 };
 
-
-exports.roles=(...roles)=>{
-	return(req, res, next)=>{
-		if(roles.includes(req.user.roles)){
-			return res.redirect('/');
-		}
-		return next();
-	};
-};

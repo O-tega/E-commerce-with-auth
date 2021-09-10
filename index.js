@@ -15,10 +15,16 @@ const  cookieParser = require('cookie-parser')
 // import mongostore to save session
 const MongoStore = require('connect-mongo');
 
+// import method override
+const methodOverride = require('method-override')
+
 
 //=============================import created modules ===============
 const authRoute = require('./routes/authRoute.routes')
 const pageRoute = require("./routes/allpages.routes");
+const adminRoute = require("./routes/adminPage.routes")
+const homeRoute = require('./routes/home.routes');
+const productsRoute = require('./routes/products.routes');
 
 //initialize express
 const app = express();
@@ -77,6 +83,8 @@ app.set("view engine", "ejs");
 //body parser middleware for rendering html
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+//calling the method override method
+app.use(methodOverride('_method'));
 
 
 
@@ -84,13 +92,6 @@ app.use(express.urlencoded({extended: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-//see the session and the user
-app.use((req,res,next)=>{
-	console.log(req.user.role)
- 	// console.log('cookie: ', req.session.cookie)
-	next();
-})
 
 //connect flash
 app.use(flash());
@@ -109,8 +110,12 @@ app.use((req, res, next) => {
 		"http://localhost:5500/";
 
 	// console.log('Cookies',req.session)
+	console.log("index: ", req.user)
 	next();
 });
+
+// set global variable for view
+app.set('views', path.join(__dirname, 'views'))
 
 //create static dir
 app.use(
@@ -119,10 +124,23 @@ app.use(
 	)
 );
 
+// create a static directory for uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+app.use(express.static(path.join(__dirname, "admin")))
+
+//check the user
+app.use((req, res, next)=>{
+	// console.log(req.user)
+	next()
+})
+
 // routes
 app.use("/", authRoute);
-app.use("/", authRoute);
 app.use("/", pageRoute);
+app.use('/admin', adminRoute);
+app.use('/', homeRoute);
+app.use('/products', productsRoute )
 
 
 //create a local server

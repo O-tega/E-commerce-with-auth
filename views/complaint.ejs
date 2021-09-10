@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+	<!-- head -->
+	<%- include('./includes/head.ejs') %>
+	<body>
+		<!-- include navbar -->
+		<%- include('./includes/navbar.ejs')
+		%>
+
+		<div
+			class="
+				container
+				justify-content-center
+			"
+		>
+			<h1
+				class="
+					text-center
+					bg-light
+					text-warning
+				"
+			>
+				Complaint page
+			</h1>
+
+			<p class="text-center">
+				Sorry for any inconvinencies
+				offered by the system, Kindly
+				fill the complaint form below so
+				we can get back to you to
+				resolve all issues. Thank you!!!
+			</p>
+		</div>
+
+		<div class="container">
+			<form
+				action="<%= server_url %>complaint-res "
+				method="POST"
+                enctype="multipart/form-data"
+			>
+				<div class="form-row">
+					<div
+						class="col-md-6 form-group"
+					>
+						<input
+							type="text"
+							name="firstname"
+							id="firstname"
+							class="form-control"
+							placeholder="Enter first name"
+						/>
+					</div>
+					<div
+						class="col-md-6 form-group"
+					>
+						<input
+							type="text"
+							name="lastname"
+							id="lastname"
+							class="form-control"
+							placeholder="Enter last name"
+						/>
+					</div>
+					<div
+						class="col-md-6 form-group"
+					>
+						<input
+							type="email"
+							name="email"
+							id="email"
+							class="form-control"
+							placeholder="Enter email address"
+						/>
+					</div>
+					<div
+						class="col-md-6 form-group"
+					>
+						<input
+							type="text"
+							name="phone-number"
+							id="phone-number"
+							class="form-control"
+							placeholder="Enter phone number"
+						/>
+					</div>
+				</div>
+				<div class="form-group">
+					<input
+						type="file"
+						name="file"
+						id="file"
+						class="form-control"
+					/>
+				</div>
+				<div class="form-group">
+					<textarea
+						name="description"
+						id="description"
+						cols="30"
+						rows="10"
+						class="form-control"
+						placeholder="Enter description here"
+					></textarea>
+				</div>
+				<div
+					class="
+						d-flex
+						justify-content-center
+					"
+				>
+					<input
+						type="submit"
+						value="submit"
+						class="
+							btn btn-outline-warning
+						"
+					/>
+					<!-- <submit class="btn btn-outline-warning">submit</submit> -->
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

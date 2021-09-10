@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- include the head -->
+<%- include('../includes/head.ejs') %> 
+<body>
+    <!-- include navbar -->
+    <%- include('../includes/navbar.ejs') %>
+    
+     <div>
+        <h2 class ="text-center"><%= product.title %>  </h2>
+        <div class="d-flex justify-content-center">
+            <img src="<%= product.product_img %> " alt="Image here" style="width:30%">
+        </div>
+    </div>
+    <p class='text-center'>
+        <%= product.description %> 
+    </p>
+    <div class="d-flex justify-content-center">
+        <a href="<%= server_url %>products/edit/<%= product._id%>" >
+            <input type="button" value="Edit" class="btn btn-outline-warning ">
+        </a>
+    </div>
+</body>
+</html>

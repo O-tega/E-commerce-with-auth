@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- include head -->
+<%- include('../includes/head.ejs') %> 
+<body >
+    <!-- include navbar -->
+    <%- include('../includes/navbar.ejs') %> 
+    <div class=" justify-content-center ">
+        <h1 class="text-center heading shadow bg-primary text-light">Displays all the Items in the E-shop</h1>
+    </div>
+
+    <div class = "container">
+        <div class ="row d-flex justify-content-center">
+
+            <% product.map((product)=>{ %>
+                    <div class="col-md-3">
+                        <div class="card shadow" >
+                            <img src="<%= product.product_img %> " alt="image here" class = "img-fluid justify-content-center card-img-top">
+                            <div class="p-2 d-flex justify-content-center">
+                                <a href = "<%= server_url %>products/<%= product._id %>" class ="text-center"><%= product.title %></a>
+                            </div>
+                            <div class="justify-content-center d-flex">
+                                <h5 class="bg-primary text-light text-center btn btn-primary justify-content-center"><%= product.amt %> </h5>
+                            </div>
+                        </div>
+                    </div>
+           <% }) %> 
+        </div>
+    </div>
+
+
+    
+</body>
+</html>

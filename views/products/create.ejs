@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+	<!-- include head -->
+	<%- include('../includes/head.ejs') %>
+	<body>
+		<!-- include body -->
+		<%- include('../includes/navbar.ejs')
+		%>
+
+		<div
+			class="
+				container
+				justify-content-center
+			"
+		>
+			<h1
+				class="
+					text-center
+					bg-primary
+					text-light
+				"
+			>
+				Create Product
+			</h1>
+
+			<p class = "text-center">
+				Fill in the list of items and
+				the description of the item you
+				are creating
+			</p>
+		</div>
+
+		<form
+			action="<%= server_url %>products/create"
+			method="POST"
+            enctype="multipart/form-data"
+			class="
+				container
+				justify-content-center
+			"
+		>
+			<div class="form-row">
+				<div class="col-md-9 form-group">
+					<input
+						type="text"
+						name="title"
+						id="title"
+						class="form-control"
+						placeholder="Enter the type the Product"
+					/>
+				</div>
+				<div
+					class="col-md-3 form-group"
+				>
+					<input
+						type="text"
+						name="serial"
+						id="serial"
+						class="form-control"
+						placeholder="product Serial NO."
+					/>
+				</div>
+				<div
+					class="col-sm-4 form-group"
+				>
+					<input
+						type="text"
+						name="category"
+						id="category"
+						class="form-control"
+						placeholder="Enter product category"
+					/>
+				</div>
+				<div
+					class="col-sm-4 form-group"
+				>
+					<input
+						type="number"
+						name="qty"
+						id="qty"
+						class="form-control"
+						placeholder="Enter quantity"
+					/>
+				</div>
+				<div
+					class="col-sm-4 form-group"
+				>
+					<input
+						type="number"
+						name="amt"
+						id="amt"
+						class="form-control"
+						placeholder="Enter Amount"
+					/>
+				</div>
+			</div>
+			<div class="form-group">
+				<input
+					type="file"
+					name="file"
+					id="file"
+					class="form-control"
+				/>
+			</div>
+            <div class = "form-group">
+                <textarea
+                    name="description"
+                    id="description"
+                    cols="30"
+                    rows="10"
+                    class="form-control"
+                    placeholder = "Enter description of the Item"
+                ></textarea>
+            </div>
+            <div class="justify-content-center d-flex">
+                <input type="submit" class="btn btn-outline-primary" value = Submit>
+                <!-- <submit class="btn btn-outline-success ">submit</submit> -->
+            </div>
+		</form>
+	</body>
+</html>

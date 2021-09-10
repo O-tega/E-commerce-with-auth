@@ -1,7 +1,7 @@
 // create router
 const router = require('express').Router()
 // import controller
-const pageController = require('../controllers/allpagesController');
+const pageController = require('../controllers/userPageController');
 // import ensureauthenticated to handle login
 const enureAuthenticated = require('../config/auth');
 const { ensureAuthenticated } = require('../config/auth');
