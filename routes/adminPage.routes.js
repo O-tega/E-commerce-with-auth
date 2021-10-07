@@ -8,13 +8,13 @@ const {ensureAuthenticated} = require('../config/adAuth')
 //get route
 router.get('/login', adminAuth.getAdminLogin)
 
-router.get('/adminDashboard', ensureAuthenticated, /*roles('admin'),*/ adminAuth.getAdminDashboard)
+router.get('/adminDashboard', ensureAuthenticated, adminAuth.getAdminDashboard)
 
 router.get('/logout', adminAuth.adminlogout)
 
 
 //post route
-router.post('/login', /*roles('admin'),*/ adminAuth.postAdminLogin)
+router.post('/login', adminAuth.postAdminLogin)
 
 
 

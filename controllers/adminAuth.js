@@ -1,6 +1,5 @@
 //get admin login
-const passport = require('passport');
-
+const passport = require("passport");
 
 exports.getAdminLogin = async (
 	req,
@@ -11,6 +10,7 @@ exports.getAdminLogin = async (
 		res.render("admin/login.ejs", {
 			server_url: req.server_url,
 			title: "Login",
+			isAdmin: req.user.role === 'admin' ? true : false
 		});
 		// console.log(req.session)
 	} catch (error) {
@@ -24,7 +24,7 @@ exports.postAdminLogin = async (
 	res,
 	next
 ) => {
-	// console.log("Check: ", req.user)
+	console.log("Check: ", req.user);
 	passport.authenticate("local", {
 		successRedirect:
 			"/admin/adminDashboard",
@@ -34,16 +34,21 @@ exports.postAdminLogin = async (
 };
 
 // get admin dashboard
-exports.getAdminDashboard = async (req, res, next)=>{
-    try{
-        res.render('admin/adminDashboard', {
-            server_url: req.server_url,
-            title: 'Admin Dashboard'
-        })
-    }catch(error){
-        next(error);
-    }
-}
+exports.getAdminDashboard = async (
+	req,
+	res,
+	next
+) => {
+	try {
+		res.render("admin/adminDashboard", {
+			server_url: req.server_url,
+			title: "Admin Dashboard",
+			isAdmin: req.user.role === 'admin' ? true : false
+		});
+	} catch (error) {
+		next(error);
+	}
+};
 
 // get logout
 exports.adminlogout = async (
@@ -59,16 +64,4 @@ exports.adminlogout = async (
 		res.redirect("/admin/login");
 };
 
-
 // restrict users
-exports.roles = (...roles) => {
-	return (req, res, next) => {
-		if (
-			roles.includes(req.user.roles)
-		) {
-			req.flash("error_msg", "unrestricted access")
-			return res.redirect("/login");
-		}
-		return next();
-	};
-};

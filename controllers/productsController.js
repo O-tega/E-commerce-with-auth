@@ -66,6 +66,7 @@ exports.getAllProducts = async (
 				title: "Product List",
 				product,
 				server_url: req.server_url,
+				isAdmin: req.user.role === 'admin' ? true : false
 			}
 		);
 	} catch (error) {
@@ -81,6 +82,7 @@ exports.createProduct = (
 	res.render("products/create.ejs", {
 		title: "create product",
 		server_url: req.server_url,
+		isAdmin: req.user.role === 'admin' ? true : false
 	});
 };
 
@@ -124,6 +126,7 @@ exports.singleProduct = async (
 			title: "Single product",
 			product,
 			server_url: req.server_url,
+			isAdmin: req.user.role === 'admin' ? true : false
 		});
 	} catch (error) {
 		next(error);
@@ -145,6 +148,7 @@ exports.editProduct = async (
 			title: "Edit Products",
 			product,
 			server_url: req.server_url,
+			isAdmin: req.user.role === 'admin' ? true : false
 		});
 	} catch (error) {
 		next(error);

@@ -121,7 +121,7 @@ exports.getlogin = async (
 			server_url: req.server_url,
 			title: "Login",
 		});
-		// console.log(req.session)
+
 	} catch (error) {
 		next(error);
 	}
@@ -133,6 +133,7 @@ exports.postlogin = async (
 	res,
 	next
 ) => {
+	
 	passport.authenticate("local", {
 		successRedirect: "/dashboard",
 		failureRedirect: "/login",
@@ -154,3 +155,12 @@ exports.logout = async (
 		res.redirect("/login");
 };
 
+
+exports.restrictRolesTo=(...roles)=>{
+	return (req, res, next)=>{
+ 		if(roles.includes(req.user.role)){
+			 return next()
+			}
+			return res.redirect('/')
+	}
+}

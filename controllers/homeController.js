@@ -31,9 +31,11 @@ const upload = multer({
 }).single('file')
 
 exports.home = (req, res, next) => {
+    console.log(req.session)
 	res.render("home.ejs", {
 		title: "Home",
 		server_url: req.server_url,
+        isAdmin: req.user.role === 'admin' ? true : false
 	});
 };
 
@@ -45,6 +47,7 @@ exports.complaint = (
 	res.render("complaint", {
 		title: "complaint page",
 		server_url: req.server_url,
+        isAdmin: req.user.role === 'admin' ? true : false
 	});
 };
 
@@ -52,6 +55,7 @@ exports.about = (req, res, next) => {
 	res.render("about", {
 		title: "About Us",
 		server_url: req.server_url,
+        isAdmin: req.user.role === 'admin' ? true : false
 	});
 };
 

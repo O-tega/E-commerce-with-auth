@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <!-- include head -->
-<%- include('../includes/head.ejs') %> 
+<%- include('../includes/head1.ejs') %> 
 <body >
     <!-- include navbar -->
     <%- include('../includes/navbar.ejs') %> 
@@ -14,7 +14,7 @@
 
             <% product.map((product)=>{ %>
                     <div class="col-md-3">
-                        <div class="card shadow" >
+                        <div class="card sz shadow" >
                             <img src="<%= product.product_img %> " alt="image here" class = "img-fluid justify-content-center card-img-top">
                             <div class="p-2 d-flex justify-content-center">
                                 <a href = "<%= server_url %>products/<%= product._id %>" class ="text-center"><%= product.title %></a>

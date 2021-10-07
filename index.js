@@ -1,23 +1,18 @@
-// import express
-const express = require("express");
-// import mongoose
-const mongoose = require("mongoose");
-// import path
-const path = require("path");
-// import express session
-const session = require("express-session");
-//import flash
-const flash = require("connect-flash");
-// import passport
-const passport = require("passport");
-const  cookieParser = require('cookie-parser')
+//module imports
+const express = require('express');
+const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const session = require('express-session')
+const methodOverride = require('method-override');
+const passport = require('passport');
+const path = require('path')
+// const MongoStore = require('connect-mongo')(session);
+const MongoDBStore = require('connect-mongodb-session')(session)
 
-// import mongostore to save session
-const MongoStore = require('connect-mongo');
+//initiaze the express server
+const app = express();
 
-// import method override
-const methodOverride = require('method-override')
-
+require('./config/passport')(passport);
 
 //=============================import created modules ===============
 const authRoute = require('./routes/authRoute.routes')
@@ -26,67 +21,24 @@ const adminRoute = require("./routes/adminPage.routes")
 const homeRoute = require('./routes/home.routes');
 const productsRoute = require('./routes/products.routes');
 
-//initialize express
-const app = express();
 
+app.set('view engine', 'ejs');
 
-
-
-//create port
-PORT = process.env.PORT || 5500;
-// connect mongodb
-
-const url = "mongodb://localhost:27017/test1"
-mongoose
-	.connect( url,
-		{
-			useNewUrlParser: true,
-			useUnifiedTopology: true,
-			useFindAndModify: false,
-			useCreateIndex: true,
-		}
-	)
-	.then(() => {
-		console.log(
-			`Database connected successfully`
-		);
-	})
-	.catch((err) => {
-		console.log("Error: ", err);
-	});
-
-	const connection = mongoose.connection
-
-	const sessionStore = MongoStore.create({
-	mongoUrl: url,
-	collection : 'sessions'
-})
+app.use(express.json())
+app.use(express.urlencoded({extended: false}));
+app.use(methodOverride('_method'))
 
 app.use(
-	session({
-		secret: "secret",
-		resave: true,
-		saveUninitialized: true,
-		store: sessionStore,
-		cookie: {maxAge: 6000}
-	})
-);
-
-// app.use(cookieParser())
-
-// passport config
-require("./config/passport")(passport);
-
-// set the views engine
-app.set("view engine", "ejs");
-
-//body parser middleware for rendering html
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-//calling the method override method
-app.use(methodOverride('_method'));
-
-
+    session({
+        secret: 'secret',
+        resave: true,
+        store: new MongoDBStore({mongooseConnection: mongoose.connection}),
+        saveUninitialized: true,
+        cookie: {
+            maxAge: 100 * 60 * 24,
+        },
+    })
+)
 
 //passport middleware
 app.use(passport.initialize());
@@ -107,12 +59,10 @@ app.use((req, res, next) => {
 	res.locals.error = req.flash("error");
 	//set a local server name
  	req.server_url =
-		"http://localhost:5500/";
-
-	// console.log('Cookies',req.session)
-	console.log("index: ", req.user)
+		"http://localhost:5000/";
 	next();
 });
+
 
 // set global variable for view
 app.set('views', path.join(__dirname, 'views'))
@@ -130,10 +80,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, "admin")))
 
 //check the user
-app.use((req, res, next)=>{
-	// console.log(req.user)
-	next()
-})
+
 
 // routes
 app.use("/", authRoute);
@@ -143,9 +90,20 @@ app.use('/', homeRoute);
 app.use('/products', productsRoute )
 
 
-//create a local server
-app.listen(PORT, () => {
-	console.log(
-		`Server running on http://127.0.0.1:${PORT}\nor http://localhost:${PORT}`
-	);
-});
+const PORT = process.env.PORT || 5000;
+
+
+
+mongoose.connect('mongodb://localhost:27017/test1', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+	useCreateIndex: true,
+})
+.then((res)=> console.log('successful'))
+.catch((err)=> console.log(err))
+
+app.listen(PORT, ()=>{
+    console.log(`server running at ${PORT}`)
+})
